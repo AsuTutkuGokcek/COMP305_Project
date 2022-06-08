@@ -1,0 +1,34 @@
+input 
+
+matrix = AllPairShortestPath(input) \\returns a matrix with shortest distance from each node to other node
+
+total =0 
+row_total[matrix.row.count]
+for (i; i<matrix.row.count; i++){
+    for(j; j<matrix.column.count; j++){
+        total += matrix[i][j]*i
+    }
+    row_total[i]=total
+    total = 0
+}
+
+maximumm = -1
+secondmaximum = -2
+
+max_index=-1
+second_max_index = -2
+
+ for(i; i<row_total.length; i++){
+        if row_total[i]> maximum:
+            secondmaximum =maximum
+            maximum = row_total[i]
+            second_max_index = max_index
+            max_index =i
+
+        else if row_total[i]< maximum and  row_total[i]> secondmaximum :
+            secondmaximum =row_total[i]
+            second_max_index = i
+    }
+
+return max_index,second_max_index
+
