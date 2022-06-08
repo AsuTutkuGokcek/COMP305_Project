@@ -1,5 +1,5 @@
 
-def find_row_total(input_matrix):
+def find_row_total(input_matrix, weight_list):
     total = 0
     length= len(input_matrix[1])
 
@@ -7,7 +7,7 @@ def find_row_total(input_matrix):
     print(input_matrix[1])
     for i in range(0, length):
         for j in range(0, length):
-             total += input_matrix[i][j] * (i+1)
+             total += input_matrix[i][j] * weight_list[i]
         matrix[i]=total
         total = 0
     print(matrix)
@@ -71,7 +71,8 @@ if __name__ == '__main__':
              ]
     # Print the solution
     dist = floydWarshall(graph,5)
-    row_total = find_row_total(dist)
+    wieght=[1,2,3,4,5]
+    row_total = find_row_total(dist,wieght)
     find_locations(row_total)
 
 
