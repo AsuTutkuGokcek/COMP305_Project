@@ -1,2 +1,10 @@
 # COMP305_Project
-This is the voluntary project for COMP305 course of Koç University.
+
+TO DO
+
+Algorithm implementation.
+Greedy counter example.
+
+Completed Steps
+
+Pseudocode done. (Implementation with APSP algorithm)
