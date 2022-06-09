@@ -2,8 +2,6 @@
 
 TO DO
 -----------
-
-Different Solution Methods
 Greedy counter example
 Proving our algorithm works
 Time and Space Complexity Analysis
@@ -13,3 +11,5 @@ Completed Steps
 -----------------
 Pseudocode done. (Implementation with APSP algorithm)
 Algorithm implementation.
+Different Solution Methods.
+Greedy Solution implemented.
