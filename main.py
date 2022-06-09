@@ -110,7 +110,7 @@ def clean_matrix(matrix,v,e):
 if __name__ == '__main__':
  
     
-    distance,weight,v,e=input_format("test3_new.txt")
+    distance,weight,v,e=input_format("test2_new.txt")
     """
     graph = [[0, 8, 4, 12,5],
              [8, 0, 9, 8, 3],
