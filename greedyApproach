@@ -120,10 +120,10 @@ def greedy_function(weight_list):
             secondmaximum = weight_list[i]
             second_max_index = i
 
-    print("max element in basic greedy ",maximumm)
-    print("secondmax element in basic greedy",secondmaximum)
-    print("max index in basic greedy",max_index)
-    print("secondmax index in basic greedy",second_max_index)
+    print("max element in greedy ",maximumm)
+    print("secondmax element in greedy",secondmaximum)
+    print("max index in greedy",max_index)
+    print("secondmax index in greedy",second_max_index)
 
 
 
@@ -170,45 +170,40 @@ def input_format(filename):
     return distance,weight,v,e
     
 
-def find_row_total(input_matrix, weight_list,v):
+def find_row_total(input_matrix, weight_list,v,e):
     total = 0
     length= len(input_matrix[1])
 
     matrix = [0] * v
     for i in range(0, v):
         for j in range(0, v):
-             total += input_matrix[i][j] * weight_list[j]
+             total += input_matrix[i][j] * weight_list[i]
         matrix[i]=total
         total = 0
   
     return matrix
 
 
-def find_locations(input_matrix,index):
-    minnimumm =999999
+def find_locations(input_matrix):
+    maximumm = -1
+    secondmaximum = -2
     row_total = input_matrix
-    min_index = -1
-
+    max_index = -1
+    second_max_index = -2
     for i in range(0, len(row_total)):
-        if row_total[i] < minnimumm:
-            minnimumm = row_total[i]
-            min_index = i
-    
-    if(index == -1):
-        print("first min element ",minnimumm)
-        print("minnode",min_index)
-        return min_index
-    else:
-        if(index >minnimumm):
-            print("second min element ",minnimumm)
-            print("minnode",min_index)
-            return min_index
-        else:
-            minnimumm = minnimumm-1
-            print("second min element ",minnimumm)
-            print("minnode",min_index)
-            return min_index
+        if row_total[i] > maximumm:
+            secondmaximum = maximumm
+            maximumm = row_total[i]
+            second_max_index = max_index
+            max_index = i
+        elif (row_total[i] < maximumm and row_total[i] > secondmaximum):
+            secondmaximum = row_total[i]
+            second_max_index = i
 
+    print("max element ",maximumm)
+    print("secondmax element",secondmaximum)
+    print("max index",max_index)
+    print("secondmax index",second_max_index)
 
 
 
@@ -244,33 +239,6 @@ def clean_matrix(matrix,v,e):
 
     return matrix
     
-def reduce_matrix(index,matrix,length,weigth):
-    print("length is", length)
-    new_matrix=[[99999 for x in range(length-1)] for y in range(length-1)] 
-    array = []
-    new_weight=[]
-    for i in range(0,v):
-        if(i != index):
-            array.append(i)
-            new_weight.append(weight[i])
-    print(array)
-    index_i = 0 
-    index_j = 0 
-    for i in array:
-        for j in array:
-            if(i <index) and (j <index):  
-                new_matrix[i][j]=matrix[i][j]
-            elif(i <index) and (j >=index):  
-                index_j = j-1 
-                new_matrix[i][index_j]=matrix[i][j]
-            elif(i >index) and (j <index): 
-                index_i = i-1 
-                new_matrix[index_i][j]=matrix[i][j]
-            elif(i >index) and (j >index):  
-                index_j = j-1 
-                index_i = i-1 
-                new_matrix[index_i][index_j]=matrix[i][j]
-    return new_matrix, new_weight
 
 if __name__ == '__main__':
  
@@ -284,16 +252,9 @@ if __name__ == '__main__':
     dist = floydWarshall(distance,v)
     print("shortest path for all pair:", dist)
     dist= clean_matrix(dist,v,e)
-    
-    row_total = find_row_total(dist,weight,v)
+    row_total = find_row_total(dist,weight,v,e)
     print("result matirx is: ",row_total)
-    index = find_locations(row_total,-1)
-    reduced,new_weight = reduce_matrix(index,dist,v,weight)
-    print(reduced)
-    print(new_weight)
-    new_row_total = find_row_total(reduced,new_weight,v-1)
-    new_index = find_locations(new_row_total,index)  
-
+    find_locations(row_total)
     
 
 
