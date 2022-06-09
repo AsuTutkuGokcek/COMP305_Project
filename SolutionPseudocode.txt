@@ -1,0 +1,36 @@
+#given: input weight_matrix
+function: 
+find_min(matrix,index){
+    total =0 
+    row_total[matrix.row.count]
+    for (i; i<matrix.row.count; i++){
+        for(j; j<matrix.column.count; j++){
+            total += matrix[i][j]*weight[j]
+        }
+        row_total[i]=total
+        total = 0
+    }
+    minimum = 999999
+    min_index=-1
+
+    for(i; i<row_total.length; i++){
+            if row_total[i]< minimum:
+                minimum = row_total[i]
+                min_index =i
+            if(index == -1):
+                return min_index
+            else:
+                if(index >minnimumm):
+                    return min_index
+                else:
+                    minnimumm = minnimumm-1
+                    return min_index}
+    return min_index
+}
+
+matrix = AllPairShortestPath(input) \\returns a matrix with shortest distance from each node to other node
+index1 = find_min(matrix,-1)
+new_matrix = matrix - matrix[index] #from VxV matrix we go down to (V-1)x(V-1)
+shortest_path = AllPairShortestPath(new_matrix)
+index2 =find_min(shortest_path,index1)
+return index1,index2
