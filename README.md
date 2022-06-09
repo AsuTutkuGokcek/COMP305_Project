@@ -2,8 +2,7 @@
 
 TO DO
 -----------
-Proving our algorithm works
-Completing slides for presentation 
+
 
 Completed Steps
 -----------------
@@ -14,3 +13,5 @@ Greedy Solution implemented.
 Greedy counter example updated.
 Time and Space Complexity Analysis done.
 Algorithm optimization and recommendations.
+Proving our algorithm works.
+Completing slides for presentation. 
