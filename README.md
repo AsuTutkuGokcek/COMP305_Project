@@ -3,8 +3,7 @@
 TO DO
 -----------
 Proving our algorithm works
-Time and Space Complexity Analysis
-Algorithm optimization and recommendations
+Completing slides for presentation 
 
 Completed Steps
 -----------------
@@ -12,4 +11,6 @@ Pseudocode done. (Implementation with APSP algorithm)
 Algorithm implementation.
 Different Solution Methods.
 Greedy Solution implemented.
-Greedy counter example.
+Greedy counter example updated.
+Time and Space Complexity Analysis done.
+Algorithm optimization and recommendations.
