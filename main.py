@@ -1,3 +1,132 @@
+from collections import defaultdict
+INT_MAX = float('Inf')
+
+# Function that returns the vertex 
+# with minimum distance 
+# from the source
+def Min_Distance(dist, visit):
+
+    (minimum, Minimum_Vertex) = (INT_MAX, 0)
+    for vertex in range(len(dist)):
+        if minimum > dist[vertex] and visit[vertex] == False:
+            (minimum, minVertex) = (dist[vertex], vertex)
+
+    return Minimum_Vertex
+
+
+# Dijkstra Algorithm for Modified
+# Graph (After removing the negative weights)
+def Dijkstra_Algorithm(graph, Altered_Graph, source):
+
+    # Number of vertices in the graph
+    tot_vertices = len(graph)
+
+    # Dictionary to check if given vertex is
+    # already included in the shortest path tree
+    sptSet = defaultdict(lambda : False)
+
+    # Shortest distance of all vertices from the source
+    dist = [INT_MAX] * tot_vertices
+
+    dist[source] = 0
+
+    for count in range(tot_vertices):
+
+        # The current vertex which is at min Distance
+        # from the source and not yet included in the
+        # shortest path tree
+        curVertex = Min_Distance(dist, sptSet)
+        sptSet[curVertex] = True
+
+        for vertex in range(tot_vertices):
+            if ((sptSet[vertex] == False) and
+                (dist[vertex] > (dist[curVertex] +
+                Altered_Graph[curVertex][vertex])) and
+                (graph[curVertex][vertex] != 0)):
+                                 
+                                                    dist[vertex] = (dist[curVertex] +Altered_Graph[curVertex][vertex])
+
+    # Print the Shortest distance from the source
+    print(dist)
+
+# Function to calculate shortest distances from source
+# to all other vertices using Bellman-Ford algorithm
+def BellmanFord_Algorithm(edges, graph, tot_vertices):
+
+    # Add a source s and calculate its min
+    # distance from every other node
+    dist = [INT_MAX] * (tot_vertices + 1)
+    dist[tot_vertices] = 0
+
+    for i in range(tot_vertices):
+        edges.append([tot_vertices, i, 0])
+
+    for i in range(tot_vertices):
+        for (source, destn, weight) in edges:
+            if((dist[source] != INT_MAX) and
+                    (dist[source] + weight < dist[destn])):
+                dist[destn] = dist[source] + weight
+
+    # Don't send the value for the source added
+    return dist[0:tot_vertices]
+
+# Function to implement Johnson Algorithm
+def JohnsonAlgorithm(graph):
+
+    edges = []
+
+    # Create a list of edges for Bellman-Ford Algorithm
+    for i in range(len(graph)):
+        for j in range(len(graph[i])):
+
+            if graph[i][j] != 0:
+                edges.append([i, j, graph[i][j]])
+
+    # Weights used to modify the original weights
+    Alter_weigts = BellmanFord_Algorithm(edges, graph, len(graph))
+
+    Altered_Graph = [[0 for p in range(len(graph))] for q in
+                    range(len(graph))]
+
+    # Modify the weights to get rid of negative weights
+    for i in range(len(graph)):
+        for j in range(len(graph[i])):
+
+            if graph[i][j] != 0:
+                Altered_Graph[i][j] = (graph[i][j] +
+                        Alter_weigts[i] - Alter_weigts[j]);
+
+    print ('Modified Graph: ' + str(Altered_Graph))
+
+    # Run Dijkstra for every vertex as source one by one
+    for source in range(len(graph)):
+        print ('\nShortest Distance with vertex ' +
+                        str(source) + ' as the source:\n')
+        Dijkstra_Algorithm(graph, Altered_Graph, source)
+
+
+def greedy_function(weight_list):
+    maximumm = -1
+    secondmaximum = -2
+    max_index = -1
+    second_max_index = -2
+    for i in range(0, len(weight_list)):
+        if weight_list[i] >= maximumm:
+            secondmaximum = maximumm
+            maximumm = weight_list[i]
+            second_max_index = max_index
+            max_index = i
+        elif (weight_list[i] < maximumm and weight_list[i] > secondmaximum):
+            secondmaximum = weight_list[i]
+            second_max_index = i
+
+    print("max element in greedy ",maximumm)
+    print("secondmax element in greedy",secondmaximum)
+    print("max index in greedy",max_index)
+    print("secondmax index in greedy",second_max_index)
+
+
+
 
 def input_format(filename):
     lines = []
@@ -20,6 +149,10 @@ def input_format(filename):
     print("wieghts are: ", weight)
     print("count is : ", count)
     distance = [[99999 for x in range(v)] for y in range(v)] 
+    for i in range(0, v):
+        for j in range(0, v):
+                if(i==j):
+                    distance[i][j]=0
     count = 0
     length= len(lines)
 
@@ -110,22 +243,17 @@ def clean_matrix(matrix,v,e):
 if __name__ == '__main__':
  
     
-    distance,weight,v,e=input_format("test2_new.txt")
-    """
-    graph = [[0, 8, 4, 12,5],
-             [8, 0, 9, 8, 3],
-             [4, 9, 0, 13,6],
-             [12,8,13,0,7],
-             [5,3,6,7,0]
-             ]
-    """
+    distance,weight,v,e=input_format("test1_new.txt")
+    greedy_function(weight)
+
     # Print the solution
     #print("distance is: ", distance)
+    print(distance)
     dist = floydWarshall(distance,v)
-    #print("shortest path for all pair:", dist)
+    print("shortest path for all pair:", dist)
     dist= clean_matrix(dist,v,e)
     row_total = find_row_total(dist,weight,v,e)
-    #print("result matirx is: ",row_total)
+    print("result matirx is: ",row_total)
     find_locations(row_total)
     
 
